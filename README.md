@@ -1,1 +1,2 @@
-Weight algorithm based depth camera point-to-plane ICP algorithm. Yujing Zeng, Yong Jiang
+Improved ICP Matching Algorithm Based on Laser Radar and IMU
+Xiaobin Xu, Minzhou Luo, Zhiying Tan, Min Zhang
