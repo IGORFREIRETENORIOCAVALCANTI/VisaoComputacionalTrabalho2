@@ -1,0 +1,251 @@
+JJJ m~ N JJJ
+Proceedings of CCIS2018
+Improved ICP Matching Algorithm Based on Laser Radar and
+IMU
+Xiaobin Xu1, 2,
+, Minzhou Luo 1, 2, Zhiying Tan 1, 2,M i nZ h a n g1, 2
+1College of Mechanical 	 Electrical Engineering, Hohai University, Chang zhou, 213022, China
+2Jiangsu Key Laboratory of Special Robot Technology, Hohai University, Ch angzhou, 213022, China
+
+Corresponding author: xxbtc@hhu.edu.cn
+Abstract: In this paper, we proposed the improved
+iterative closest point algorithm based on laser radar and
+IMU. The system composition is described. The initial
+pose estimates of two scanning point clouds are obtained
+by IMU, and extraction of line feature of two 2-D point
+sets is put forward to accomplish the matching of fast
+changing scenario. The experiment is carried out, and
+the results show that the improved ICP algorithm could
+accelerate the iteration of ICP and improve the
+performance of point clouds.
+Keywords: Laser radar; SLAM; Iterative closest points;
+Pose estimate
+1 Introduction
+Indoor mobile robot (IMR), as a kind of automatic
+intelligent equipment, has attracted more and more
+attention. With the increase of human cost and the
+improvement of automation and intelligence in the
+production process, demand for IMR will be more
+urgent for enterprise. Practically, laser navigation, as a
+crucial method to realize simultaneous localization and
+mapping (SLAM), based on laser radar has been widely
+studied and successfully applied in IMR [1-3]. The
+problem of SLAM is more closely related to
+environmental representation, map building, location
+technology, path planning and motion control.
+The SLAM technology is mostly divided into two
+methods, which are the probability estimation method
+and the non probability estimation method. The former
+applies probability theory to the positioning process of
+mobile robot. The typical methods are ICP SLAM [2, 4],
+extended Kalman filter (EKF) SLAM [5, 6] and particle
+filter (PF) SLAM [7]. The latter is Graph SLAM [8].
+Presently, the time costs of EKF-SLAM, PF-SLAM and
+Graph-SLAM are enormous on account of the complex
+operation process. Especially, in [5, 6], the intelligent
+optimization methods are incorporated into the SLAM
+algorithm. It is difficult to realize these algorithms in
+practical. On contrary, the ICP-SLAM is realized only
+using the matching of two frames point clouds, which
+was verified in past years. However, the traditional ICP
+method needs to be improved because of the lack of
+initial pose estimate and effective matching.
+In this paper, the improved iterative closest points based
+on laser radar and IMU is proposed. In Section 2, the
+IMR system composition is described. Section 3
+improved the ICP method by initial pose estimate and
+extraction of line feature. In Section 4, the real
+experiment is carried out to verify the improved ICP
+method. Finally, some conclusions are achieved.
+2 The system composition
+The block diagram of hardware composition for laser
+navigation IMR system is shown in Figure 1. The sensor
+system is divided into internal and external sensors. The
+external sensor is two-dimensional laser radar, which
+could perceive environment and obtain the distance and
+angle information. The external sensors consist of two
+encoders, IMU and an electronic compass. Two encoders
+are mounted on the driving wheel of IMR to estimate the
+pose. Although it is inevitable for drift of IMU integral
+measurement and effect of magnetic field for electronic
+compass, the fusion algorithm could be adapted to make
+up this defect and improve the accuracy of position
+measurement.
+Figure 1 Block diagram of hardware composition for laser
+navigation IMR system
+3 The improved ICP Method
+The key problem in laser navigation SLAM is to solve
+the problem of frame matching. The most commonly
+used method is ICP matching. We give two 2-D point
+sets {} :1 , 2 , ,ipi N  ? ,( h e r e , ip and 
+ip are
+considered as 21columnmatrices)
+
+ii ipR p T N + + (1)
+where R is a 2  2 rotation matrix, T is a translation
+vector (2 1 column matrix), and Ni is a noise vector.
+We want to find R and T to minimize
+VTUJNJRPUSJSMMRJULNULAPNKMM ÆOMNU fbbb
+RNT^    W rkf`^m J r~ `~Đ~  m~K a~  j~ NUIOMOS ~ NOWRNWRV rq`  fbbb uK  o ~K 
+
+JJJ m~ O JJJ
+Proceedings of CCIS2018
+22
+1
+N
+ii
+i
+Rp T N
+ 
+Ã + +Ã (2)
+We use the singular value decomposition (SVD) to
+obtain the optimal estimate. It is significant to select the
+initial rotation matrix R and pose vector T [9]. Thus, we
+achieve the initial data through inertial measurement
+unit (IMU). The Improved ICP scan matching is shown
+in Figure 2. The whole scheme is divided into two parts,
+and the process is as follows:
+1. The IMU and compass are used to acquire the initial
+pose estimate.
+2. The numbers of 2-D point sets are compared to judge
+fast changing scenario.
+3. If the scenario changes fast, the local straight line is
+extracted from the original laser radar data. The initial
+pose estimate and local straight line are applied to ICP
+matching to improve the accuracy of matching.
+4. Contrarily, the only initial pose estimate is adopted to
+improve the ICP matching.
+Figure 2 Diagram of Improved ICP scan matching image.
+4 Experiments and analysis
+The experiment prototype is shown as Figure 3. The
+industrial personal computer and battery mount on the
+platform. The bracket is utilized to connect to laser radar,
+whose type is rplidar A2 of SLAMTEC Corporation.
+The experiment data collected by Linux ubuntu 14.04 is
+employed to verify effectiveness of proposed method.
+Figure 3 The indoor navigation prototype
+ICP matching analysis is carried out between two frames.
+In the first case, the scenario changes little. Thus, the
+displacement is relatively small. As shown in Figure 4,
+the initial parameters estimated using the pose
+calculation of IMU are:
+[]
+T
+0.9998 0.0197
+0.0197 0.9998
+0.1942 0.8231
+R
+T
+Ç× ÈØ-ÉÙ
+ - -
+(3)
+It can be seen from the graph that the initial pose
+estimation could be effectively realized adding the initial
+matrix. Two point clouds almost overlap. Therefore, the
+convergence speed of the ICP can be faster. The
+experiments after iteration of the ICP algorithm are
+shown in Figure 5. It can be seen from the diagram that
+the two graphs are almost completely overlapped. The
+rotation matrix and the translation vector after
+calculationareasfollows:
+[]
+T
+0.9995 0.0301
+0.0301 0.9995
+6.52e 4 0.0854
+e
+e
+R
+T
+-Ç× ÈØÉÙ
+ - -
+(4)
+The rotation matrix is similar. Nevertheless, the plane
+shift vector is different by comparing the initial
+parameters and the parameters after the iteration.
+Because the IMU sensor obtains the rotation matrix
+through the angular velocity integral, and the error is
+relatively small. However, The cumulative error is
+relatively large on account of acceleration of two times
+integral. From Figure 6, it can be seen that the selection
+of the initial estimation of the position and attitude
+parameters can effectively reduce the error of ICP
+iterative function. Compared with traditional ICP, the
+improved ICP has converged after third iterations.
+Whereas, the iteration of position estimation cannot
+converge until the iteration reaches eighth times.
+Meanwhile, we can see that because of the same
+conditions of convergence, the objective function value
+afterthefinal iterationissimilar.
+Figure 4 The initial point clouds
+RNU^    W rkf`^m J r~ `~Đ~  m~K a~  j~ NUIOMOS ~ NOWRNWRV rq`  fbbb uK  o ~K 
+
+JJJ m~ P JJJ
+Proceedings of CCIS2018
+Figure 5 The comparisons of ICP algorithm
+Figure 6 Errors with different ICP
+In the second case, the scenario is shown in Figure 7. It
+can be seen that half of point clouds don ͸t overlap. The
+directly used ICP method will cause large error. The
+results are shown in Figure 8. The matching result is not
+ideal. Thus, we extract the line feature. By these features,
+we could acquire optimal pose estimate better. In this
+figure, only the left part could be used to extract line
+feature to achieve the estimate pose. The results could be
+seen as in figure 9. Two 2-D point sets could be matched
+according to the only partly overlapping point clouds.
+Figure 7 Errors with different ICP
+Figure 8 the results without line feature extraction
+Figure 9 the results with line feature extraction
+5 Conclusions
+The improved ICP algorithm based on laser radar and
+IMU is proposed. Some conclusions can be achieved: (1)
+compared with traditional ICP, the improved ICP has
+converged after third iterations. The convergence speed
+is accelerated. (2) The accuracy of ICP matching is
+assured by fusion of IMU data and line feature of laser
+radar data.
+Acknowledgements
+This work is supported by the Fundamental Research Funds
+for the Central Universities (Nos.2017B07814,
+Nos.2017B21114, Nos.2018B03914 and Nos.2016B12414)
+and Opening Fund of Jiangsu Key Laboratory of Special Robot
+Technology (Nos. 2017JSJQR02).
+References
+[1] Carolina H A, Clara G, Jonathan C, et al. Object
+Detection Applied to Indoor Environments for Mobile
+Robot Navigation. Sensors, 2016, 16(8):1180.
+[2] Liu W , LiDAR-IMU Time Dela y Calibration Based on
+Iterative Closest Point and Iterated Sigma Point Kalman
+RNV^    W rkf`^m J r~ `~Đ~  m~K a~  j~ NUIOMOS ~ NOWRNWRV rq`  fbbb uK  o ~K 
+
+JJJ m~ Q JJJ
+Proceedings of CCIS2018
+Filter, Sensors, 2017, 17: 539.
+[3] Budzan S, Kasprzyk J, Fusion of 3D laser scanner and
+depth images for obstacle recognition in mobile
+applications, Opt. Laser Eng. 2016, 77: 230-240
+[4] Y . T Yang, C. C Peng, A. A. Ravankar and ARavankar, A
+Single LiDAR-Based Feature Fusion Indoor Localization
+Algorithm, Sensors, 2018, 18:1294.
+[5] Chen W D, Liu Y L, Zhu Q G, et al. Fuzz y adaptive
+extended Kalman filter SLAM algorithm based on the
+improved wild geese PSO algorithm. Acta Physica Sinica,
+2013, 62(17):116-121.
+[6] Chatter jee A, Matsuno F. A Geese PSO tuned fuzz y
+supervisor for EKF based solutions of simultaneous
+localization and mapping (SLAM) problems in mobile
+robots. Expert Systems with Applications, 2010,
+37(8):5542-5548.
+[7] Tan g XL ,L a - M e iLI ,J i a ng B J. Mobile robot SLAM
+method based on multi-agent particle swarm optimized
+particle filter. The Journal of China Universities of Posts
+and Telecommunications, 2014, 21(6):78-86.
+[8] Grisetti G, Kummerle R, Stachniss C, et al. A Tutorial on
+Graph-Based SLAM. IEEE Intelligent Transportation
+Systems Magazine, 2011, 2(4):31-43.
+[9] Arun K S, Huang T S, Blostein S D. Least-Squares
+Fitting of Two 3-D Point Sets. IEEE Trans Pattern Anal
+Mach Intell, 1987, 9(5):698-700.
+ROM^    W rkf`^m J r~ `~Đ~  m~K a~  j~ NUIOMOS ~ NOWRNWRV rq`  fbbb uK  o ~K 
+
